@@ -1,0 +1,10 @@
+C:\PLOSKIKH\yp1\obj\Debug\yp1.csproj.AssemblyReference.cache
+C:\PLOSKIKH\yp1\obj\Debug\yp1.csproj.CoreCompileInputs.cache
+C:\PLOSKIKH\yp1\bin\Debug\yp1.exe.config
+C:\PLOSKIKH\yp1\bin\Debug\yp1.exe
+C:\PLOSKIKH\yp1\bin\Debug\yp1.pdb
+C:\PLOSKIKH\yp1\obj\Debug\yp1.exe
+C:\PLOSKIKH\yp1\obj\Debug\yp1.pdb
+C:\PLOSKIKH\yp1\obj\Debug\yp1.Properties.Resources.resources
+C:\PLOSKIKH\yp1\obj\Debug\yp1.Shop.resources
+C:\PLOSKIKH\yp1\obj\Debug\yp1.csproj.GenerateResource.cache
