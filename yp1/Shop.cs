@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
 namespace yp1
 {
     public partial class Shop : Form
@@ -22,9 +24,12 @@ namespace yp1
 
         }
 
+        //Переход в раздел по добавлению продуктов
         private void добавитьПродуктToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            panel4.Visible = false;
             panel1.Visible = true;
+            panel3.Visible = true;
             listBox1.Items.Clear();
             foreach (var product in shop1.Products)
             {
@@ -38,7 +43,7 @@ namespace yp1
             return input.All(char.IsLetter);
         }
 
-        //Добавление продукта в список 
+        //Добавление продукта в список всех продуктов
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -89,7 +94,7 @@ namespace yp1
         {
 
         }
-
+        //Проверка на ввод цифр
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -97,9 +102,10 @@ namespace yp1
                 e.Handled = true;
             }
         }
-
+        //Переход в раздел совершения покупок
         private void сделатьПокупкуToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            panel4.Visible = false;
             listBox2.Items.Clear();
             listBox3.Items.Clear();
             panel2.Visible = true;
@@ -111,6 +117,7 @@ namespace yp1
 
         }
 
+        //Добавление товара в корзину
         private void button2_Click(object sender, EventArgs e)
         {
             try
@@ -140,7 +147,7 @@ namespace yp1
             
 
         }
-
+        //
         public static string ExtractTotalPrice(string input)
         {
             
@@ -159,7 +166,7 @@ namespace yp1
 
             return null; 
         }
-
+        //Покупка всейкорзины
         private void button3_Click(object sender, EventArgs e)
         {
             try
@@ -179,7 +186,7 @@ namespace yp1
             }
             
         }
-
+        //закрытие раздела по добавлению продукта
         private void button4_Click(object sender, EventArgs e)
         {
             panel1.Visible = false;
@@ -188,7 +195,7 @@ namespace yp1
             numericUpDown3.Value = 1;
             listBox1.Items.Clear();
         }
-
+        //закрытие раздела по покупке
         private void button5_Click(object sender, EventArgs e)
         {
             listBox2.Items.Clear();
@@ -197,7 +204,7 @@ namespace yp1
             listBox3.Items.Clear();
             panel2.Visible = false;
         }
-
+        //выбор товарар для его дозакупки
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string name = listBox1.SelectedItem.ToString();
@@ -211,6 +218,220 @@ namespace yp1
         private void button6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void дискиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel4.Visible = true;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //ПЕСЕНКИ
+        Playlist playlist = new Playlist();
+        Song song = new Song();
+
+
+
+        //Обновляет данные о текущей песне
+        private void UpdateSong()
+        {
+            song = playlist.CurrentSong();
+            autor.Text = song.Author;
+            name.Text = song.Title;
+            file.Text = song.Filename;
+        }
+
+
+        //Добавление новой песни
+        private void Add_song(object sender, EventArgs e)
+        {
+            if(Proverka(AuthorLine.Text, NameLine.Text, PathLine.Text))
+            {
+                string author, name, filename;
+                author = AuthorLine.Text;
+                name = NameLine.Text;
+                filename = PathLine.Text;
+                playlist.AddSong(author, name, filename);
+                AuthorLine.ResetText();
+                NameLine.ResetText();
+                PathLine.ResetText();
+                MessageBox.Show("Песня добавлена");
+                autor.Text= author;
+                this.name.Text = name;
+                file.Text = filename;
+               /* song = playlist.CurrentSong();*/
+               /* UpdateSong();*/
+            }
+            else
+            {
+                MessageBox.Show("Вы не заполнили поля");
+            }
+           
+        }
+
+
+        //Проверка на заполниние полей
+        private bool Proverka(string author, string name, string filename)
+        {
+            return !string.IsNullOrWhiteSpace(author) &&
+                   !string.IsNullOrWhiteSpace(name) &&
+                   !string.IsNullOrWhiteSpace(filename);
+        }
+
+
+
+        //Очистка плейлиста
+        private void Clear_pl(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите продолжить?", "Подтверждение", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show("Плейлист удален");
+                playlist.Clear();
+                autor.Text = "";
+                name.Text = "";
+                file.Text = "";
+            }
+            else if (result == DialogResult.No)
+            {
+                MessageBox.Show("Операция отменена");
+            }
+        }
+        //пролистывание песни вперед
+        private void Nextsn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.NextSong();
+                song = playlist.CurrentSong();
+                autor.Text = song.Author;
+                name.Text = song.Title;
+                file.Text = song.Filename;
+            }
+            catch(Exception ex)
+            {
+
+            }
+           
+        }
+        //пролистывание песни назад
+        private void Backsn_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.PreviousSong();
+                song = playlist.CurrentSong();
+                autor.Text = song.Author;
+                name.Text = song.Title;
+                file.Text = song.Filename;
+            }
+            catch (Exception ex)
+            {
+
+            }
+           
+        }
+            
+
+        //Переход к началу списка
+        private void ToStart(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.GoToStart();
+                UpdateSong();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        //удаление текущей песни
+        private void Delete_CurrentSong(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.RemoveSong(song);
+                UpdateSong();
+            
+                MessageBox.Show("Песня была удалена");
+            }
+            catch (Exception ex)
+            {
+               
+            }
+           
+        }
+        //Удаление песни по введенным данным
+        private void Delete_with_name(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.RemoveSong(song);
+                UpdateSong();
+            }
+            catch(Exception ex)
+            {
+
+            }
+          
+        }
+        //Удаление при помощи индекса песни
+        private void Delete_with_index(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.RemoveSong(Convert.ToInt32(numericUpDown5.Value));
+                UpdateSong();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Извините такого индекса не существует");
+
+            }
+        }
+        //переход по индексу
+        private void by_index(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.GoToSong(Convert.ToInt32(numericUpDown4.Value));
+                UpdateSong();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Извините такого индекса не существует");
+
+            }
         }
     }
 }

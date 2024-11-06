@@ -8,12 +8,15 @@ namespace yp1
 {
     internal class Sh
     {
+        //поле класса
         private Dictionary<Product,int> products;
 
+
+        //Свойства
         public Dictionary<Product, int> Products { get { return products; }
             set { } }
 
-
+        //Поиск товара по имени
         public Product FindByName(string name)
         {
             foreach (var product in products.Keys)
@@ -26,7 +29,7 @@ namespace yp1
             return null;
         }
 
-
+        //проверка что такое продукт существует
         public bool pr(string name)
         {
             foreach (var product in products.Keys)
@@ -40,7 +43,7 @@ namespace yp1
         }
 
 
-
+        //добавление кол-ва товара
         public void Dop(string productname,int count)
         {
             Product toSell = FindByName(productname);
@@ -54,17 +57,18 @@ namespace yp1
            
         }
 
-
+        //конструктоор
         public Sh()
         {
             products = new Dictionary<Product, int>();
         }
+        //добавление продукта
         public void AddProduct(Product product,int count)
         {
             products.Add(product,count);
         }
 
-
+        //Вывод всех продуктов
         public string  WriteAllProducts()
         {
             StringBuilder productList = new StringBuilder("Список продуктов:\n");
@@ -75,12 +79,12 @@ namespace yp1
             }
             return productList.ToString();
         }
-
+        //Создание и добавление продукта
         public void CreateProduct(string name, decimal price,int count)
         {
             products.Add(new Product(name, price),count);
         }
-
+        //Продажа продукта
         public string Sell(string ProductName,int count)
         {
             Product toSell = FindByName(ProductName);
@@ -102,6 +106,7 @@ namespace yp1
             }
         }
 
+        //Добавление товара в корзину
         public string Korzina(string productName, int count)
         {
             Product toSell = FindByName(productName);

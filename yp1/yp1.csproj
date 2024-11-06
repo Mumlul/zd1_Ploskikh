@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cat.cs" />
+    <Compile Include="Playlist.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Shop.Designer.cs">
       <DependentUpon>Shop.cs</DependentUpon>
     </Compile>
+    <Compile Include="Song.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
